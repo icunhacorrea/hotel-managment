@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  webserver_setup:
+    build: ./
+    volumes:
+      - ./:/opt/hotel_managment
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+  
+  webserver:
+    extends:
+      service: webserver_setup
+    restart: always
+    entrypoint: ["./entrypoint.sh"]
+    ports:
+      - 8000:8000
+
+networks:
+  default:
+    name: hotel_managment_network
+    external: false
+
+
